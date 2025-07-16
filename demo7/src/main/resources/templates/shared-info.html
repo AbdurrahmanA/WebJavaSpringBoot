@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shared Information</title>
+</head>
+<body>
+
+<h1>Information Details</h1>
+
+<p><strong>Title:</strong> <span th:text="${info.title}"></span></p>
+<p><strong>Content:</strong> <span th:text="${info.content}"></span></p>
+<p><strong>Category:</strong> <span th:text="${info.category?.name}"></span></p>
+<p><strong>Date:</strong> <span th:text="${info.dateAdded}"></span></p>
+<p><strong>Owner:</strong> <span th:text="${info.owner?.firstName} + ' ' + ${info.owner?.lastName}"></span></p>
+
+<a href="http://localhost:8080/StoreEverything/information" style="display: block; margin-top: 20px;">Back to Information</a>
+
+</body>
+</html>

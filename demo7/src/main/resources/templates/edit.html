@@ -1,0 +1,46 @@
+  <!DOCTYPE html>
+  <html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Information</title>
+  </head>
+  <body>
+
+  <h1>Edit Information</h1>
+
+  <form th:action="@{'/information/edit/' + ${info.id}}" th:object="${info}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" th:field="*{title}" required />
+    </div>
+
+    <div>
+      <label for="category">Category:</label>
+      <select id="category" th:field="*{category.id}">
+        <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+      </select>
+    </div>
+
+    <div>
+      <label for="content">Content:</label>
+      <textarea id="content" th:field="*{content}" rows="5" cols="30"></textarea>
+    </div>
+
+    <div>
+      <label for="sharedWith">Paylaşım:</label>
+      <select id="sharedWith" th:field="*{sharedWith.id}">
+        <option value="">--- Kimseyle paylaşma ---</option>
+        <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.firstName + ' ' + u.lastName}"
+                th:selected="${u.id == info.sharedWith?.id}"></option>
+      </select>
+    </div>
+
+    <br/>
+    <button type="submit">Save</button>
+    <a th:href="@{/information/}">Cancel</a>
+  </form>
+
+  </body>
+  </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Kayıt Ol</title>
+</head>
+<body>
+
+<h1>Kayıt Ol</h1>
+
+<form th:action="@{/users/register}" th:object="${user}" method="post">
+
+  <label for="firstName">Ad:</label>
+  <input type="text" id="firstName" th:field="*{firstName}" />
+  <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+  <br><br>
+
+  <label for="lastName">Soyad:</label>
+  <input type="text" id="lastName" th:field="*{lastName}" />
+  <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+  <br><br>
+
+  <label for="login">Kullanıcı Adı:</label>
+  <input type="text" id="login" th:field="*{login}" />
+  <div th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+  <br><br>
+
+  <label for="password">Şifre:</label>
+  <input type="password" id="password" th:field="*{password}" />
+  <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+  <br><br>
+
+  <label for="age">Yaş:</label>
+  <input type="number" id="age" th:field="*{age}" />
+  <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+  <br><br>
+
+  <!-- Rol seçimi kullanıcıya gösterilmez; backend'de ROLE_LIMITED_USER atanır -->
+
+  <button type="submit">Kayıt Ol</button>
+</form>
+
+<br>
+<a th:href="@{/users/login}">Giriş Yap</a>
+
+</body>
+</html>

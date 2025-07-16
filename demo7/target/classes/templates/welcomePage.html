@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome Page</title>
+</head>
+<body>
+<h1>Hoşgeldiniz!</h1>
+<p>Bu, uygulamanın karşılama sayfasıdır.</p>
+
+<a th:href="@{/users/login}">Giriş Yap</a> |
+<a th:href="@{/users/register}">Kayıt Ol</a>
+</body>
+</html>

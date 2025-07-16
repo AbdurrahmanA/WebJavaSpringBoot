@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Category List</title>
+</head>
+<body>
+<h1>Categories</h1>
+<p>
+  <a th:href="@{/categories/list}">Go to Category List</a> |
+  <a th:href="@{/information}">Back to Information List</a>
+</p>
+<a th:href="@{/categories/add}">Add New Category</a>
+<ul>
+  <li th:each="cat : ${categories}" th:text="${cat.name}"></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Information List</title>
+</head>
+<body>
+
+<form action="/StoreEverything/users/logout" method="post" style="display: inline;">
+  <button type="submit">Logout</button>
+</form>
+
+<h1>My Information</h1>
+
+<p>
+  <a th:href="@{/categories/list}">Go to Category List</a> |
+  <a th:href="@{/users}">Go to User List</a>
+
+</p>
+
+
+<a th:href="@{/information/add}">Add New</a>
+
+<form th:action="@{/information}" method="get">
+  <label for="category">Category:</label>
+  <select id="category" name="categoryId">
+    <option value="" th:selected="${categoryId == null}">All</option>
+    <option th:each="cat : ${categories}"
+            th:value="${cat.id}"
+            th:text="${cat.name}"
+            th:selected="${cat.id == categoryId}">
+    </option>
+  </select>
+
+  <label for="startDate">Start Date:</label>
+  <input type="date" id="startDate" name="startDate" th:value="${startDate}"/>
+
+  <label for="endDate">End Date:</label>
+  <input type="date" id="endDate" name="endDate" th:value="${endDate}"/>
+
+  <button type="submit">Filter</button>
+</form>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>
+      <form th:action="@{/users/updateSortPreference}" method="post" style="display:inline;">
+        <input type="hidden" name="sortPreference"
+               th:value="'category:' + (${sortField} == 'category' and ${sortDir} == 'asc' ? 'desc' : 'asc')"/>
+        <button type="submit">Category</button>
+      </form>
+    </th>
+    <th>
+      <form th:action="@{/users/updateSortPreference}" method="post" style="display:inline;">
+        <input type="hidden" name="sortPreference"
+               th:value="'date:' + (${sortField} == 'date' and ${sortDir} == 'asc' ? 'desc' : 'asc')"/>
+        <button type="submit">Date</button>
+      </form>
+    </th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="info : ${myInformation}">
+    <td th:text="${info.title}">Title</td>
+    <td th:text="${info.category.name}">Category</td>
+    <td th:text="${info.formattedDate}">Date</td>
+    <td>
+      <a th:href="@{'/information/edit/' + ${info.id}}">Edit</a> |
+      <a th:href="@{'/information/delete/' + ${info.id}}">Delete</a> |
+      <a th:href="@{'/information/shared/' + ${info.id}}">View</a>
+    </td>
+  </tr>
+  <tr th:if="${#lists.isEmpty(myInformation)}">
+    <td colspan="4">You have not added any information yet.</td>
+  </tr>
+  </tbody>
+</table>
+
+<br><br>
+
+<h1>Other Users' Information</h1>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Category</th>
+    <th>Date</th>
+    <th>Owner</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="info : ${otherInformation}">
+    <td th:text="${info.title}">Title</td>
+    <td th:text="${info.category?.name}">Category</td>
+    <td th:text="${info.formattedDate}">Date</td>
+    <td th:text="${info.owner?.firstName}">Owner</td>
+    <td>
+      <a th:href="@{'/information/shared/' + ${info.id}}">View</a>
+    </td>
+  </tr>
+  <tr th:if="${#lists.isEmpty(otherInformation)}">
+    <td colspan="5">No information available.</td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
